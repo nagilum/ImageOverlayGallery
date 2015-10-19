@@ -19,7 +19,6 @@ String.prototype.contains = function (text) {
 };
 
 var iog_images       = [],
-    iog_galleries    = [],
     iog_animateSpeed = 0;
 
 (function(){
@@ -63,7 +62,8 @@ var iog_images       = [],
           href.contains('/g/') ||
           href.contains('/album/') ||
           href.contains('/gallery')) {
-        isGallery = true;
+        href = '//imgur.userecho.com/s/logos/2015/2015.png';
+        isImage = true;
       }
       else if (href.endsWith('.gifv')) {
         href = href.replace('.gifv', '.gif');
@@ -85,14 +85,6 @@ var iog_images       = [],
 
     if (isImage)
       iog_images.push({
-        href: href,
-        title: title,
-        comments: comments,
-        link: link
-      });
-
-    if (isGallery)
-      iog_galleries.push({
         href: href,
         title: title,
         comments: comments,
@@ -193,35 +185,6 @@ var iog_images       = [],
     .append($keys)
     .keydown(iog_BodyKeydown);
 
-  if (iog_galleries.length > 0) {
-    var $galleries =
-      $('<div>')
-        .addClass('iog_Galleries')
-        .css({
-          bottom: 10,
-          color: '#fff',
-          fontSize: 15,
-          left: 10,
-          position: 'fixed',
-          zIndex: 9999
-        })
-        .text('Galleries:');
-
-    for (var i = 0; i < iog_galleries.length; i++)
-      $galleries
-        .append(
-          $('<a>')
-            .attr('href', iog_galleries[i].href)
-            .attr('target', '_blank')
-            .css({
-              display: 'block'
-            })
-            .text(iog_galleries[i].title));
-
-    $('body')
-      .append($galleries);
-  }
-
   // Find the next image in line and load it.
   iog_ActivateNextImage();
 })();
@@ -268,6 +231,8 @@ function iog_FadeOutAndLoad($image, index) {
     }, iog_animateSpeed, function () {
       if (iog_animateSpeed === 0)
         iog_animateSpeed = 500;
+
+      console.log('Loading ' + iog_images[index].href);
 
       $image
         .attr('data-image-index', index)
