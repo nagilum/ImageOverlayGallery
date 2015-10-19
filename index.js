@@ -65,6 +65,10 @@ var iog_images       = [],
           href.contains('/gallery')) {
         isGallery = true;
       }
+      else if (href.endsWith('.gifv')) {
+        href = href.replace('.gifv', '.gif');
+        isImage = true;
+      }
       else {
         href += '.png';
         isImage = true;
