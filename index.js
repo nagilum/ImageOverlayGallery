@@ -2,6 +2,8 @@
  * @file
  * Image Overlay Gallery for reddit.
  *
+ * Creates a overlay which makes it easy to browse all images on a reddit page.
+ *
  * @author
  * Stian Hanger <pdnagilum@gmail.com>
  */
