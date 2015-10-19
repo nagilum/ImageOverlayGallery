@@ -62,8 +62,8 @@ var iog_images       = [],
           href.contains('/g/') ||
           href.contains('/album/') ||
           href.contains('/gallery')) {
-        href = '//imgur.userecho.com/s/logos/2015/2015.png';
         isImage = true;
+        isGallery = true;
       }
       else if (href.endsWith('.gifv')) {
         href = href.replace('.gifv', '.gif');
@@ -88,7 +88,8 @@ var iog_images       = [],
         href: href,
         title: title,
         comments: comments,
-        link: link
+        link: link,
+        isGallery: isGallery
       });
   });
 
@@ -234,9 +235,14 @@ function iog_FadeOutAndLoad($image, index) {
 
       console.log('Loading ' + iog_images[index].href);
 
+      var src =
+        iog_images[index].isGallery
+          ? '//imgur.userecho.com/s/logos/2015/2015.png'
+          : iog_images[index].href;
+
       $image
         .attr('data-image-index', index)
-        .attr('src', iog_images[index].href);
+        .attr('src', src);
     });
 
   $('a.iog_Title')
